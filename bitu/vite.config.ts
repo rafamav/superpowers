@@ -2,9 +2,14 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
-// base: './' lets the build run from any sub-path (GitHub Pages, opened locally, etc.)
+// O app será servido em www.by-mav.com/bitu, então o base padrão é '/bitu/'.
+// Dá para sobrescrever no build com VITE_BASE (ex.: VITE_BASE=/ ou /outro/).
+// Usar um base absoluto também limita o escopo do Service Worker a /bitu/,
+// evitando que o PWA controle o resto do domínio.
+const base = process.env.VITE_BASE || '/bitu/'
+
 export default defineConfig({
-  base: './',
+  base,
   plugins: [
     react(),
     VitePWA({
